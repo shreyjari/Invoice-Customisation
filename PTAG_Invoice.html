@@ -65,7 +65,7 @@
       table { font-family: sans-serif; font-size:9pt; width:100%; table-layout:fixed; margin-top:10px; }
       th    { background:#c3c3c3; color:#000000; font-weight:bold; padding:5px 8px 3px; font-size:10pt; }
       td    { padding:4px 6px; }
-      table.header    { border-bottom:4px solid #000000; }
+      table.header    { border-bottom:4px black; }
       table.footer    { border-collapse:collapse; }
       table.itemtable td { border:0.5px solid #e0e0e0; }
       tr.totalrow     { color:#2B547E; background:#fff; line-height:200%; }
@@ -83,25 +83,28 @@
         size="Letter">
 
     <!-- COMPANY & BILL-TO -->
-    <table border="0" width="100%">
+    <table border="0" width="50%">
       <tr>
         <td class="addressheader" colspan="6">${companyinformation.companyname}</td>
-        <td colspan="1">&nbsp;</td>
-        <td class="addressheader" colspan="6"><b>${record.billaddress@label}</b></td>
       </tr>
       <tr>
         <td class="address" colspan="6">${subsidiary.mainaddress_text}</td>
-        <td colspan="1">&nbsp;</td>
-        <td class="address" colspan="6"><span style="color:#666;">${record.billaddress}</span></td>
-      </tr>
-      <tr>
-        <#if record.entity.vatregnumber?has_content>
-          <td class="address" colspan="12">
-            <span style="color:#666;">${record.entity.vatregnumber@label} : ${record.entity.vatregnumber}</span>
-          </td>
-        </#if>
       </tr>
     </table>
+    
+    <!--Phone Number Block-->
+
+
+    <!--Invoice to-->
+    <table class="itemtable" width="30%">
+    <tr>
+      <td class="addressheader" colspan="6"><b>${record.billaddress@label}</b></td>
+    </tr>
+    <tr>
+      <td class="address" colspan="6"><span style="color:#000000;">${record.billaddress}</span></td>
+    </tr>
+  </table>
+    
 
      <!--PO Number-->
      <table class="itemtable" width="30%">
