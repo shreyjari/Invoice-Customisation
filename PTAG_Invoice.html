@@ -95,58 +95,53 @@
     <!--Phone Number Block-->
     
     <!-- INVOICE HEADER tranid is Invoice number-->
-    <table  width="50%">
+    <table  width="45%">
       <thead>
         <tr>
             <th colspan="3" style="text-align:center;">${record.trandate@label}</th>
-            <th colspan="9" style="text-align:center;">${record.tranid@label}</th>
+            <th colspan="6" style="text-align:center;">${record.tranid@label}</th>
         </tr>
       </thead>
       <tr>
         <td colspan="3" style="text-align:center;">${record.trandate}</td>
-        <td colspan="9" style="text-align: center;">${record.tranid}</td>
+        <td colspan="6" style="text-align: center;">${record.tranid}</td>
       </tr>
     </table>
   
     <!-- TERMS / DUE / PO / SALES REP -->
-  
-    <table class="itemtable" border="0" width="100%">
-      <thead>
+    
+    <!-- PO Number -->
+    <table class="itemtable" style="width: 30%; margin-left: auto; margin-right: 0;">
+        <thead>
+            <tr>  
+                <th colspan="1"><span>${record.otherrefnum@label}</span></th>
+            </tr>
+        </thead>
         <tr>
-          <th colspan="2">${record.terms@label}</th>
-          <th colspan="2">${record.duedate@label}</th>        
-          <th colspan="1"><span>${record.otherrefnum@label}</span></th>
+            <td colspan="1"><span>${record.otherrefnum}</span></td>
         </tr>
-      </thead>
-      <tr>
-        <td colspan="2"><span style="color:#666;">${record.terms}</span></td>
-        <td colspan="2"><span style="color:#666;">${record.duedate}</span></td>
-        <td colspan="1"><span>${record.otherrefnum}</span></td>
-    </tr>
+    </table>
+
+    <!-- Terms -->
+    <table class="itemtable" style="width: 30%; margin-left: auto; margin-right: 0;">
+        <thead>
+            <tr>
+                <th colspan="1">${record.terms@label}</th>
+                <th colspan="1">${record.terms}</th>
+            </tr>
+        </thead>
     </table>
     
     <!--Invoice to-->
     <table class="itemtable" width="30%">
-    <tr>
-      <td class="addressheader" colspan="5"><b>${record.billaddress@label}</b></td>
+        <tr>
+            <td class="addressheader" colspan="5"><b>${record.billaddress@label}</b></td>
     </tr>
     <tr>
       <td class="address" colspan="5"><span style="color:#000000;">${record.billaddress}</span></td>
     </tr>
   </table>
     
-
-     <!--PO Number-->
-     <table class="itemtable" width="30%">
-        <thead>
-            <tr>
-                <th colspan="1"><span>"${record.otherrefnum@label}"</span></th>
-                <td colspan="1"><span>${record.otherrefnum}</span></td>
-            </tr>
-        </thead>
-     </table>
-
-
     <!-- LINE ITEMS -->
     <#if record.item?has_content>
       <#assign hasTax1=false><#assign hasTax2=false>
@@ -197,11 +192,6 @@
         <td colspan="24">&nbsp;</td>
         <td colspan="6" style="text-align:right;"><b>${tc.default.CHARGES_TAX_AMT}</b></td>
         <td colspan="7" style="text-align:right;"><b>${record.taxtotal}</b></td>
-      </tr>
-      <tr>
-        <td colspan="24">&nbsp;</td>
-        <td colspan="6" style="text-align:right;"><b>${record.shippingcost@label}</b></td>
-        <td colspan="7" style="text-align:right;"><b>${record.shippingcost}</b></td>
       </tr>
     </table>
 
