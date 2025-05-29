@@ -83,56 +83,33 @@
         size="Letter">
 
     <!-- COMPANY & BILL-TO -->
-    <table border="0" width="50%">
+    <table border="0" width="30%">
       <tr>
-        <td class="addressheader" colspan="6">${companyinformation.companyname}</td>
+        <td class="addressheader" colspan="5">${companyinformation.companyname}</td>
       </tr>
       <tr>
-        <td class="address" colspan="6">${subsidiary.mainaddress_text}</td>
+        <td class="address" colspan="5">${subsidiary.mainaddress_text}</td>
       </tr>
     </table>
     
     <!--Phone Number Block-->
-
-
-    <!--Invoice to-->
-    <table class="itemtable" width="30%">
-    <tr>
-      <td class="addressheader" colspan="6"><b>${record.billaddress@label}</b></td>
-    </tr>
-    <tr>
-      <td class="address" colspan="6"><span style="color:#000000;">${record.billaddress}</span></td>
-    </tr>
-  </table>
     
-
-     <!--PO Number-->
-     <table class="itemtable" width="30%">
-        <thead>
-            <tr>
-                <th colspan="1"><span>${record.otherrefnum@label}</span></th>
-                <td colspan="1"><span>${record.otherrefnum}</span></td>
-            </tr>
-        </thead>
-     </table>
-
     <!-- INVOICE HEADER tranid is Invoice number-->
-    <table class="itemtable" border="0" width="30%">
+    <table  width="50%">
       <thead>
         <tr>
-          <th colspan="5" style="text-align:center;">${record.tranid@label}</th>
-          <th colspan="2" style="text-align:center;">${record.trandate@label}</th>
+            <th colspan="3" style="text-align:center;">${record.trandate@label}</th>
+            <th colspan="9" style="text-align:center;">${record.tranid@label}</th>
         </tr>
       </thead>
       <tr>
-        <td colspan="5"><span style="color:#666; text-align: center;">${record.tranid}</span></td>
-        <td colspan="2" style="text-align:center;"><span style="color:#666;">${record.trandate}</span></td>
+        <td colspan="3" style="text-align:center;">${record.trandate}</td>
+        <td colspan="9" style="text-align: center;">${record.tranid}</td>
       </tr>
     </table>
-
+  
     <!-- TERMS / DUE / PO / SALES REP -->
-
-
+  
     <table class="itemtable" border="0" width="100%">
       <thead>
         <tr>
@@ -147,6 +124,28 @@
         <td colspan="1"><span>${record.otherrefnum}</span></td>
     </tr>
     </table>
+    
+    <!--Invoice to-->
+    <table class="itemtable" width="30%">
+    <tr>
+      <td class="addressheader" colspan="5"><b>${record.billaddress@label}</b></td>
+    </tr>
+    <tr>
+      <td class="address" colspan="5"><span style="color:#000000;">${record.billaddress}</span></td>
+    </tr>
+  </table>
+    
+
+     <!--PO Number-->
+     <table class="itemtable" width="30%">
+        <thead>
+            <tr>
+                <th colspan="1"><span>"${record.otherrefnum@label}"</span></th>
+                <td colspan="1"><span>${record.otherrefnum}</span></td>
+            </tr>
+        </thead>
+     </table>
+
 
     <!-- LINE ITEMS -->
     <#if record.item?has_content>
