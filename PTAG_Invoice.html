@@ -1,0 +1,223 @@
+    <?xml version="1.0"?>
+    <!DOCTYPE pdf PUBLIC "-//big.faceless.org//report" "report-1.1.dtd">
+
+    <pdf>
+
+    <!--================================ HEAD =================================-->
+    <head>
+        <!-- 1) Fonts -->
+        <link name="NotoSans" type="font" subtype="truetype"
+            src="${nsfont.NotoSans_Regular}"
+            src-bold="${nsfont.NotoSans_Bold}"
+            src-italic="${nsfont.NotoSans_Italic}"
+            src-bolditalic="${nsfont.NotoSans_BoldItalic}"
+            bytes="2"/>
+
+        <!-- 2) Translation Collection -->
+        <#assign tc = nstranslation.load({
+        "collections":[{
+            "alias":"default",
+            "collection":"custcollection_chargespdf",
+            "keys":[
+            "CHARGES_TAX_AMT","CHARGES_AMT_DUE",
+            "CHARGES_TYPE","CHARGES_DATE","CHARGES_EMP",
+            "CHARGES_DESC","CHARGES_QTY","CHARGES_RATE","CHARGES_AMT"
+            ],
+            "locale":.locale
+        }]
+        })>
+
+        <!-- 3) Header/Footer Macros -->
+        <macrolist>
+        <macro id="nlheader">
+            <table class="header">
+            <tr>
+                <td align="left">
+                <#if companyInformation.logoUrl?has_content>
+                    <@filecabinet nstype="image"
+                                src="${subsidiary.logo@url}"
+                                style="width:130px;height:45px;"/>
+                </#if>
+                </td>
+            </tr>
+            </table>
+    4      </macro>
+
+        <macro id="nlfooter">
+            <#assign rawFooter = record.subsidiary.custrecord_atlas_svcs_mm_doc_footer!''>
+            <#if rawFooter?length &gt; 260>
+            <#assign footerText = rawFooter?substring(0,260)>
+            <#else>
+            <#assign footerText = rawFooter>
+            </#if>
+
+            <table align="right" class="footer">
+            <tr>
+                <td style="height:57px;">${footerText!''}</td>
+                <td style="height:57px;">${subsidiary.custrecord_atlas_svcs_mm_bankdetails!''}</td>
+            </tr>
+            </table>
+        </macro>
+        </macrolist>
+
+        <!-- 4) CSS Styles -->
+        <style type="text/css">
+        table { font-family: sans-serif; font-size:9pt; width:100%; table-layout:fixed; margin-top:10px; }
+        th    { background:#b3b3b3; color:#000000; font-weight:bold; padding:5px 8px 3px; font-size:10pt; }
+        td    { padding:4px 6px; }
+        table.header    { border-bottom:4px solid #000000; }
+        table.footer    { border-collapse:collapse; }
+        table.itemtable td { border:0.5px solid #e0e0e0; }
+        tr.totalrow     { color:#2B547E; background:#fff; line-height:200%; }
+        hr              { width:100%; height:1px; background:#d3d3d3; border:none; }
+        span.title      { font-size:14pt; }
+        span.number     { font-size:16pt; color:#00467F; }
+        span.total      { font-size:10pt; }
+        </style>
+    </head>
+
+    <!--=============================== BODY ================================-->
+    <body header="nlheader" header-height="8%"
+            footer="nlfooter" footer-height="65pt"
+            padding="0.5in 0.5in 0.5in 0.5in"
+            size="Letter">
+
+        <!-- COMPANY & BILL-TO -->
+        <table border="0" width="100%">
+        <tr>
+            <td class="addressheader" colspan="6">${companyinformation.companyname}</td>
+            <td colspan="1">&nbsp;</td>
+            <td class="addressheader" colspan="6"><b>${record.billaddress@label}</b></td>
+        </tr>
+        <tr>
+            <td class="address" colspan="6">${subsidiary.mainaddress_text}</td>
+            <td colspan="1">&nbsp;</td>
+            <td class="address" colspan="6"><span style="color:#666;">${record.billaddress}</span></td>
+        </tr>
+        <tr>
+            <#if record.entity.vatregnumber?has_content>
+            <td class="address" colspan="12">
+                <span style="color:#666;">${record.entity.vatregnumber@label} : ${record.entity.vatregnumber}</span>
+            </td>
+            </#if>
+        </tr>
+        </table>
+
+        <!--PO Number-->
+        <table class="itemtable" width="30%">
+            <thead>
+                <tr>
+                    <th colspan="1"><span>${record.otherrefnum@label}</span></th>
+                    <td colspan="6"><span>${record.otherrefnum}</span></td>
+                </tr>
+            </thead>
+        </table>
+
+        <!-- INVOICE HEADER tranid is Invoice number-->
+        <table class="itemtable" border="0" width="30%">
+        <thead>
+            <tr>
+            <th colspan="5" style="text-align:center;">${record.tranid@label}</th>
+            <th colspan="2" style="text-align:center;">${record.trandate@label}</th>
+            </tr>
+        </thead>
+        <tr>
+            <td colspan="5"><span style="color:#666; text-align: center;">${record.tranid}</span></td>
+            <td colspan="2" style="text-align:center;"><span style="color:#666;">${record.trandate}</span></td>
+        </tr>
+        </table>
+
+        <!-- TERMS / DUE / PO / SALES REP -->
+
+
+        <table class="itemtable" border="0" width="100%">
+        <thead>
+            <tr>
+            <th colspan="2">${record.terms@label}</th>
+            <th colspan="2">${record.duedate@label}</th>        
+            <th colspan="1"><span>${record.otherrefnum@label}</span></th>
+            </tr>
+        </thead>
+        <tr>
+            <td colspan="2"><span style="color:#666;">${record.terms}</span></td>
+            <td colspan="2"><span style="color:#666;">${record.duedate}</span></td>
+            <td colspan="1"><span>${record.otherrefnum}</span></td>
+        </tr>
+        </table>
+
+        <!-- LINE ITEMS -->
+        <#if record.item?has_content>
+        <#assign hasTax1=false><#assign hasTax2=false>
+        <#list record.item as it>
+            <#if it.taxrate1?has_content><#assign hasTax1=true></#if>
+            <#if it.taxrate?has_content ><#assign hasTax2=true></#if>
+        </#list>
+        <table class="itemtable" width="100%">
+            <thead>
+            <tr>
+                <th colspan="8" style="text-align:left;">${record.item[0].item@label}</th>
+                <th colspan="9">${record.item[0].description@label}</th>
+                <th colspan="4" style="text-align:right;">${record.item[0].quantity@label}</th>
+                <#if hasTax1>
+                <th colspan="3">${record.item[0].taxrate1@label}</th>
+                <#elseif hasTax2>
+                <th colspan="3">${record.item[0].taxrate@label}</th>
+                </#if>
+                <th colspan="6" style="text-align:right;">${record.item[0].rate@label}</th>
+                <th colspan="7" style="text-align:right;">${record.item[0].amount@label}</th>
+            </tr>
+            </thead>
+            <#list record.item as it>
+            <tr style="background-color:${ (it_index % 2 == 0)?string('#ffffff','#f0f0f0') }">
+                <td colspan="8"><span style="color:#666;">${it.item}</span></td>
+                <td colspan="9"><span style="color:#666;">${it.description}</span></td>
+                <td colspan="4" style="text-align:right;"><span style="color:#666;">${it.quantity}</span></td>
+                <#if hasTax1>
+                <td colspan="3"><span style="color:#666;">${it.taxrate1}</span></td>
+                <#elseif hasTax2>
+                <td colspan="3"><span style="color:#666;">${it.taxrate}</span></td>
+                </#if>
+                <td colspan="6" style="text-align:right;"><span style="color:#666;">${it.rate}</span></td>
+                <td colspan="7" style="text-align:right;"><span style="color:#666;">${it.amount}</span></td>
+            </tr>
+            </#list>
+        </table>
+        </#if>
+
+        <!-- SUBTOTAL / TAX / SHIPPING -->
+        <table class="itemtable" border="0" width="100%">
+        <tr>
+            <td colspan="24">&nbsp;</td>
+            <td colspan="6" style="text-align:right;"><b>${record.subtotal@label}</b></td>
+            <td colspan="7" style="text-align:right;"><b>${record.subtotal}</b></td>
+        </tr>
+        <tr>
+            <td colspan="24">&nbsp;</td>
+            <td colspan="6" style="text-align:right;"><b>${tc.default.CHARGES_TAX_AMT}</b></td>
+            <td colspan="7" style="text-align:right;"><b>${record.taxtotal}</b></td>
+        </tr>
+        <tr>
+            <td colspan="24">&nbsp;</td>
+            <td colspan="6" style="text-align:right;"><b>${record.shippingcost@label}</b></td>
+            <td colspan="7" style="text-align:right;"><b>${record.shippingcost}</b></td>
+        </tr>
+        </table>
+
+        <hr/>
+
+        <!-- GRAND TOTAL / AMOUNT DUE -->
+        <table width="100%">
+        <tr>
+            <td colspan="24">&nbsp;</td>
+            <td colspan="6" style="text-align:right;"><b><span class="total">${record.total@label}</span></b></td>
+            <td colspan="7" style="text-align:right;"><b><span class="total">${record.total}</span></b></td>
+        </tr>
+        <tr>
+            <td colspan="24">&nbsp;</td>
+            <td colspan="6" style="text-align:right;"><strong>${tc.default.CHARGES_AMT_DUE}</strong></td>
+            <td colspan="7" style="text-align:right;"><b>${record.amountremaining}</b></td>
+        </tr>
+        </table>
+
+    </body>
+    </pdf>
