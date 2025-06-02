@@ -34,7 +34,6 @@
 						<td align="left"><#if companyInformation.logoUrl?has_content> <@filecabinet nstype="image" style="width: 130px; height: 45px;" src="${subsidiary.logo@url}" /> </#if></td>
 					</tr>
 				</table>
-				4
 			</macro>
 			<macro id="nlfooter">
 				<#assign rawFooter = record.subsidiary.custrecord_atlas_svcs_mm_doc_footer!''> <#if rawFooter?length &gt; 260> <#assign footerText = rawFooter?substring(0,260)> <#else> <#assign footerText = rawFooter> </#if>
@@ -98,7 +97,6 @@
 							<td class="address">${record.billaddress}</td>
 						</tr>
 					</table>
-                    
                     <!-- PO # -->
                     <table class="itemtable" width="100%" border="1" style="margin-top:10px;">
                         <thead>
