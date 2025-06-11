@@ -172,13 +172,13 @@
     <body header="nlheader" header-height="10%" footer="nlfooter" footer-height="20pt" padding="0.5in 0.5in 0.5in 0.5in" size="Letter">
         <table style="width: 100%; margin-top: 2px;">
             <tr>
-                <td class="addressheader" colspan="9"><strong>${record.billaddress@label}</strong></td>
-                <td class="addressheader" colspan="9"><strong>Project Location</strong></td>
+                <td class="addressheader" colspan="6"><strong>${record.billaddress@label}</strong></td>
+                <td class="addressheader" colspan="12"><strong>Project Location</strong></td>
                 <td class="totalboxtop" colspan="8"><strong>${record.total@label?upper_case}</strong></td>
             </tr>
             <tr>
-                <td class="address" colspan="9" rowspan="2">${record.billaddress}</td>
-                <td class="address" colspan="9" rowspan="2">Job Location</td>
+                <td class="address" colspan="6" rowspan="2">${record.billaddress}</td>
+                <td class="address" colspan="12" rowspan="2">${record.job.address}</td>
                 <td class="totalboxmid" colspan="8" align="right">${record.total}</td>
             </tr>
             <tr>
@@ -192,16 +192,16 @@
                 <!-- ─────────────  HEADERS  ───────────── -->
                 <tr>
                     <th colspan="3">${record.terms@label}</th>
-                    <th colspan="12">${record.duedate@label}</th>
-                    <th colspan="3">${record.job@label}</th>
+                    <th colspan="5">${record.duedate@label}</th>
+                    <th colspan="10">${record.job@label}</th>
                     <th colspan="4">${record.otherrefnum@label}</th>
                     <th colspan="4">Account Manager</th>
                 </tr>
                 <!-- ─────────────  DATA  ───────────── -->
                 <tr>
                     <td colspan="3">${record.terms}</td>
-                    <td colspan="12">${record.duedate}</td>
-                    <td colspan="3">${record.job}</td>
+                    <td colspan="5">${record.duedate}</td>
+                    <td colspan="10">${record.job}</td>
                     <td colspan="4">${record.otherrefnum}</td>
                     <td colspan="4">${record.salesrep}</td>
                 </tr>
