@@ -39,12 +39,16 @@
 
                 <table class="footer" style="width: 100%;">
                     <tr>
-                        <td><span class="nameandaddress">${companyInformation.companyName}</span><br /><span class="nameandaddress">${companyInformation.addressText}</span></td>
-                        <td>
-                            <barcode codetype="code128" showtext="true" value="${record.tranid}" />${companyinformation.custrecord_atlas_svcs_mm_taxnumber@label}<br />${companyinformation.custrecord_atlas_svcs_mm_taxnumber}
+                        <td align="left">
+                            Log in to track your billing history and open balances:
                         </td>
-                        <td><a href="https://ptaginc.com/">Visit our website</a></td>
-                        <td>Email: Invoices@ptaginc.com <br />${companyinformation.custrecord_atlas_svcs_mm_phone}</td>
+                        <td align="left"><a href="https://ptaginc.com/client-billing">Visit our website</a></td>
+                        <td align="left">
+                            <span>${subsidiary.name}</span><br />
+                            ${subsidiary.mainaddress_text}
+                        </td>
+                        <td align="left">Email: Invoices@ptaginc.com <br />${companyinformation.custrecord_atlas_svcs_mm_phone}</td>
+                        <td align="left">${subsidiary.custrecord_atlas_svcs_mm_taxnumber@label}: ${subsidiary.custrecord_atlas_svcs_mm_taxnumber}</td>
                         <td align="right">
                             <pagenumber /> of
                             <totalpages />
@@ -169,7 +173,7 @@
         </style>
     </head>
 
-    <body header="nlheader" header-height="10%" footer="nlfooter" footer-height="20pt" padding="0.5in 0.5in 0.5in 0.5in" size="Letter">
+    <body header="nlheader" header-height="10%" footer="nlfooter" footer-height="25pt" padding="0.5in 0.5in 0.5in 0.5in" size="Letter">
         <table style="width: 100%; margin-top: 2px;">
             <tr>
                 <td class="addressheader" colspan="6"><strong>${record.billaddress@label}</strong></td>
@@ -178,7 +182,7 @@
             </tr>
             <tr>
                 <td class="address" colspan="6" rowspan="2">${record.billaddress}</td>
-                <td class="address" colspan="12" rowspan="2">${record.job.address}</td>
+                <td class="address" colspan="12" rowspan="2">${record.entity.address}</td>
                 <td class="totalboxmid" colspan="8" align="right">${record.total}</td>
             </tr>
             <tr>
@@ -222,7 +226,7 @@
                         <td colspan="3">${item.options}</td>
                         <td colspan="4" align="left">${item.rate}</td>
                         <td colspan="4" align="left">${item.amount}</td>
-                        
+
                     </tr>
                 </#list> <!-- end items -->
             </table>
@@ -233,7 +237,7 @@
                 <td colspan="3">&nbsp;</td>
                 <td colspan="12">&nbsp;</td>
                 <td colspan="3">&nbsp;</td>
-                
+
                 <td colspan="4"><strong>${record.subtotal@label}</strong></td>
                 <td colspan="4">${record.subtotal}</td>
             </tr>
@@ -241,7 +245,7 @@
                 <td colspan="3">&nbsp;</td>
                 <td colspan="12">&nbsp;</td>
                 <td colspan="3">&nbsp;</td>
-                
+
                 <td colspan="4"><strong>${record.taxtotal@label} (${record.taxrate}%)</strong></td>
                 <td colspan="4">${record.taxtotal}</td>
             </tr>
@@ -249,9 +253,9 @@
                 <td colspan="3">&nbsp;</td>
                 <td colspan="12">&nbsp;</td>
                 <td colspan="3">&nbsp;</td>
-                
-                <td class="totalrow" colspan="4" ><strong>${record.total@label}</strong></td>
-                <td class="totalrow" colspan="4" >${record.total}</td>
+
+                <td class="totalrow" colspan="4"><strong>${record.total@label}</strong></td>
+                <td class="totalrow" colspan="4">${record.total}</td>
             </tr>
         </table>
     </body>
