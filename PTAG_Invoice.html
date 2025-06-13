@@ -40,15 +40,17 @@
                 <table class="footer" style="width: 100%;">
                     <tr>
                         <td align="left">
-                            Log in to track your billing history and open balances:
+                            <span style="font-size:9px;"> Log in to track your billing history and open balances: </span><br />
+                            <barcode codetype="qrcode" showtext="false" height="80%" width="80%" value="http://www.ptaginc.com/client-billing/" /> 
                         </td>
-                        <td align="left"><a href="https://ptaginc.com/client-billing">Visit our website</a></td>
                         <td align="left">
                             <span>${subsidiary.name}</span><br />
                             ${subsidiary.mainaddress_text}
                         </td>
-                        <td align="left">Email: Invoices@ptaginc.com <br />${companyinformation.custrecord_atlas_svcs_mm_phone}</td>
-                        <td align="left">${subsidiary.custrecord_atlas_svcs_mm_taxnumber@label}: ${subsidiary.custrecord_atlas_svcs_mm_taxnumber}</td>
+                        <td align="left">Questions? Email us at: Invoices@ptaginc.com <br />${companyinformation.custrecord_atlas_svcs_mm_phone}</td>
+                        <td align="right">
+                            ${subsidiary.custrecord_atlas_svcs_mm_taxnumber@label}: <br />
+                            ${subsidiary.custrecord_atlas_svcs_mm_taxnumber}</td>
                         <td align="right">
                             <pagenumber /> of
                             <totalpages />
@@ -173,7 +175,7 @@
         </style>
     </head>
 
-    <body header="nlheader" header-height="10%" footer="nlfooter" footer-height="25pt" padding="0.5in 0.5in 0.5in 0.5in" size="Letter">
+    <body header="nlheader" header-height="10%" footer="nlfooter" footer-height="8%" padding="0.5in 0.5in 0.5in 0.5in" size="Letter">
         <table style="width: 100%; margin-top: 2px;">
             <tr>
                 <td class="addressheader" colspan="6"><strong>${record.billaddress@label}</strong></td>
