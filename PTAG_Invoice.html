@@ -24,7 +24,7 @@
                             <!-- Logo size is dynamic, it has been set using 1136x424px as the default -->
                             <@filecabinet nstype="image" style="margin: 7px; height: 10%; width: 10%;" src="${companyInformation.logoUrl}" />
                         </td>
-                        <td align="right"><span class="title">${record@title}</span></td>
+                        <td align="right"><span class="title" style="font-size: 37pt;">${record@title}</span></td>
                     </tr>
                     <tr>
                         <td align="right"><span class="number">#${record.tranid}</span></td>
@@ -39,18 +39,12 @@
 
                 <table class="footer" style="width: 100%;">
                     <tr>
-                        <td align="left">
-                            <span style="font-size:9px;"> Log in to track your billing history and open balances: </span><br />
-                            <barcode codetype="qrcode" showtext="false" height="80%" width="80%" value="http://www.ptaginc.com/client-billing/" /> 
+                        <td align="left"><span style="font-size: 9px;"> Log in to track your billing history and open balances: </span><br />
+                            <barcode codetype="qrcode" showtext="false" height="80%" width="80%" value="http://www.ptaginc.com/client-billing/" />
                         </td>
-                        <td align="left">
-                            <span>${subsidiary.name}</span><br />
-                            ${subsidiary.mainaddress_text}
-                        </td>
+                        <td align="left">${subsidiary.mainaddress_text}</td>
                         <td align="left">Questions? Email us at: Invoices@ptaginc.com <br />${companyinformation.custrecord_atlas_svcs_mm_phone}</td>
-                        <td align="right">
-                            ${subsidiary.custrecord_atlas_svcs_mm_taxnumber@label}: <br />
-                            ${subsidiary.custrecord_atlas_svcs_mm_taxnumber}</td>
+                        <td align="right">${subsidiary.custrecord_atlas_svcs_mm_taxnumber@label}: <br />${subsidiary.custrecord_atlas_svcs_mm_taxnumber}</td>
                         <td align="right">
                             <pagenumber /> of
                             <totalpages />
@@ -178,20 +172,18 @@
     <body header="nlheader" header-height="10%" footer="nlfooter" footer-height="8%" padding="0.5in 0.5in 0.5in 0.5in" size="Letter">
         <table style="width: 100%; margin-top: 2px;">
             <tr>
-                <td class="addressheader" colspan="6"><strong>${record.billaddress@label}</strong></td>
-                <td class="addressheader" colspan="12"><strong>Project Location</strong></td>
+                <td class="addressheader" colspan="18"><strong>${record.billaddress@label}</strong></td>
                 <td class="totalboxtop" colspan="8"><strong>${record.total@label?upper_case}</strong></td>
             </tr>
             <tr>
-                <td class="address" colspan="6" rowspan="2">${record.billaddress}</td>
-                <td class="address" colspan="12" rowspan="2">${record.entity.address}</td>
+                <td class="address" colspan="18" rowspan="2">${record.billaddress}</td>
                 <td class="totalboxmid" colspan="8" align="right">${record.total}</td>
             </tr>
             <tr>
-                <td class="totalboxbot" colspan="8" align="right"><strong>${record.duedate@label}:</strong> ${record.duedate}</td>
+                <td class="totalboxbot" colspan="4" align="left">For Billing Period: ${record.duedate}</td>
+                <td class="totalboxbot" colspan="4" align="right"><strong>${record.duedate@label}:</strong> ${record.duedate}</td>
             </tr>
         </table>
-
         <#if record.item?has_content>
             <table class="itemtable" style="width: 100%; margin-top: 10px;">
                 <!-- optional: give each column a % width so this table lines-up with the item table below -->
@@ -228,7 +220,6 @@
                         <td colspan="3">${item.options}</td>
                         <td colspan="4" align="left">${item.rate}</td>
                         <td colspan="4" align="left">${item.amount}</td>
-
                     </tr>
                 </#list> <!-- end items -->
             </table>
@@ -239,7 +230,6 @@
                 <td colspan="3">&nbsp;</td>
                 <td colspan="12">&nbsp;</td>
                 <td colspan="3">&nbsp;</td>
-
                 <td colspan="4"><strong>${record.subtotal@label}</strong></td>
                 <td colspan="4">${record.subtotal}</td>
             </tr>
@@ -247,7 +237,6 @@
                 <td colspan="3">&nbsp;</td>
                 <td colspan="12">&nbsp;</td>
                 <td colspan="3">&nbsp;</td>
-
                 <td colspan="4"><strong>${record.taxtotal@label} (${record.taxrate}%)</strong></td>
                 <td colspan="4">${record.taxtotal}</td>
             </tr>
@@ -255,7 +244,6 @@
                 <td colspan="3">&nbsp;</td>
                 <td colspan="12">&nbsp;</td>
                 <td colspan="3">&nbsp;</td>
-
                 <td class="totalrow" colspan="4"><strong>${record.total@label}</strong></td>
                 <td class="totalrow" colspan="4">${record.total}</td>
             </tr>
